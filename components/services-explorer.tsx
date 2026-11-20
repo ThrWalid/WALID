@@ -184,6 +184,23 @@ export function ServicesExplorer() {
         </div>
       </header>
 
+      <div className="story-mobile-showcase" aria-label="Aperçu de projets web">
+        <div className="story-mobile-showcase-heading">
+          <span>Projets sélectionnés</span>
+          <p>Glissez pour explorer</p>
+        </div>
+        <div className="story-mobile-showcase-track">
+          {projectShowcase.map(item => <figure className="story-mobile-project" key={`mobile-${item.src}`}>
+            <Image src={item.src} alt={`Interface du projet ${item.title}`} width={900} height={600} sizes="(max-width: 700px) 78vw, 0px" />
+            <span aria-hidden="true" />
+            <figcaption>
+              <p><small>{item.category}</small><strong>{item.title}</strong></p>
+              <i>{item.number}</i>
+            </figcaption>
+          </figure>)}
+        </div>
+      </div>
+
       <div className="web-story">
         <aside className="web-story-visual" aria-hidden="true">
           <div className="story-visual-sticky" data-stage="0">
