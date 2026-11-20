@@ -5,6 +5,7 @@ import { ServicesExplorer } from '@/components/services-explorer';
 import { ProjectStudies } from '@/components/project-studies';
 import { PortfolioHero } from '@/components/portfolio-hero';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
+import { FeedbackShowcase } from '@/components/feedback-showcase';
 
 export default function Home() {
   const jsonLd = {
@@ -33,6 +34,8 @@ export default function Home() {
       <ServicesExplorer />
 
       <ProjectStudies />
+
+      <FeedbackShowcase />
 
       <section id="faq" className="faq-section section-space shell" aria-labelledby="faq-title">
         <header className="editorial-heading"><p className="kicker">Avant de commencer</p><div><h2 id="faq-title">Vos questions.</h2><p>Quelques repères pour préparer notre premier échange.</p></div></header>

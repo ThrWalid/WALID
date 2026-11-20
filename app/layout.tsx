@@ -3,6 +3,7 @@ import { profile } from '@/lib/portfolio';
 import "./globals.css";
 import "./hero.css";
 import "./brand.css";
+import "./feedback.css";
 import 'lenis/dist/lenis.css';
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider';
 
