@@ -36,6 +36,14 @@ export const services = [
     deliverables: ['Analyse des processus', 'Intégration d’API', 'Automatisation des traitements', 'Outils internes', 'Suivi et documentation'],
     idealFor: 'les équipes qui jonglent entre plusieurs outils ou répètent les mêmes opérations au quotidien.',
   },
+  {
+    id: '04',
+    title: 'SEO technique & performance web',
+    headline: 'Une base saine pour être compris, trouvé et consulté rapidement.',
+    description: 'Audit SEO, architecture sémantique, données structurées, indexation et Core Web Vitals pour améliorer durablement la visibilité et l’expérience de votre site.',
+    deliverables: ['Audit SEO technique et priorisation', 'Architecture, métadonnées et maillage interne', 'Schema.org, sitemap et robots.txt', 'Optimisation des performances et Core Web Vitals', 'Mesure Lighthouse et suivi des améliorations'],
+    idealFor: 'les entreprises qui veulent corriger les freins techniques de leur site et construire une visibilité organique durable.',
+  },
 ];
 
 export type Project = {
@@ -120,6 +128,7 @@ export const faqs = [
   { question: 'Prenez-vous en charge le design et le développement ?', answer: 'Oui : structure, maquettes, interfaces, backend, tests et mise en ligne peuvent faire partie de la mission. Le périmètre est convenu au départ.' },
   { question: 'Faut-il déjà avoir un cahier des charges ?', answer: 'Non. Une idée, un objectif ou une difficulté suffit pour commencer. Nous précisons ensemble les utilisateurs, les priorités et les contraintes techniques.' },
   { question: 'Le site sera-t-il adapté au mobile et modifiable ?', answer: 'L’adaptation aux écrans, l’accessibilité et la performance font partie du travail. Un outil de gestion de contenu peut être prévu si vous souhaitez effectuer des mises à jour vous-même.' },
+  { question: 'Prenez-vous en charge le référencement naturel ?', answer: 'Oui. Je travaille le SEO technique dès la conception : structure sémantique, métadonnées, données structurées, sitemap, indexation, maillage interne, performance et Core Web Vitals. Un audit permet ensuite de mesurer les résultats et de prioriser les améliorations, sans promettre artificiellement une position précise dans Google.' },
   { question: 'Que se passe-t-il après la mise en ligne ?', answer: 'Je vous accompagne pour la mise en ligne et la prise en main. La maintenance, le suivi ou de nouvelles fonctionnalités peuvent faire l’objet d’un accompagnement complémentaire.' },
   { question: 'Pouvez-vous travailler avec notre équipe ?', answer: 'Oui. Je peux collaborer avec vos designers, développeurs ou partenaires, en définissant les responsabilités et les points de suivi dès le départ.' },
 ];

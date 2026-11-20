@@ -89,6 +89,34 @@ const serviceOffers = [
     ],
     action: 'Décrire mon application',
   },
+  {
+    code: '04',
+    label: 'SEO technique & performance',
+    icon: SearchCheck,
+    title: 'Être trouvé. Charger vite. Convertir mieux.',
+    context: 'Pour construire une base SEO solide, corriger les freins techniques d’un site existant ou préparer une croissance durable dans les résultats de recherche.',
+    outcome: 'Votre site devient plus simple à explorer pour Google, plus rapide pour vos visiteurs et mieux structuré pour relier chaque page à une intention de recherche utile à votre activité.',
+    deliverables: [
+      'Audit technique, sémantique et analyse des performances',
+      'Architecture des pages, balises et maillage interne',
+      'Données structurées, sitemap, robots et métadonnées',
+      'Optimisation des Core Web Vitals et des médias',
+      'Configuration du suivi et recommandations prioritaires',
+    ],
+    outputs: [
+      { title: 'Indexation', text: 'Des pages accessibles, compréhensibles et correctement déclarées aux moteurs.' },
+      { title: 'Performance', text: 'Une expérience rapide qui limite les abandons et soutient le référencement.' },
+      { title: 'Pilotage', text: 'Des contrôles mesurables et un plan d’amélioration classé par impact.' },
+    ],
+    action: 'Améliorer mon référencement',
+  },
+];
+
+const seoScores = [
+  { value: '100', label: 'Performance' },
+  { value: '97', label: 'Accessibilité' },
+  { value: '100', label: 'Bonnes pratiques' },
+  { value: '100', label: 'SEO' },
 ];
 
 const qualityStandards = [
@@ -136,7 +164,8 @@ export function ServicesExplorer() {
         gsap.utils.toArray<HTMLElement>('.web-story-chapter').forEach((chapter, index) => {
           const items = chapter.querySelectorAll('[data-chapter-item]');
           gsap.fromTo(items, { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .52, stagger: .045, ease: 'power2.out', scrollTrigger: { trigger: chapter, start: 'top 82%', once: true } });
-          ScrollTrigger.create({ trigger: chapter, start: 'top 58%', end: 'bottom 42%', onEnter: () => setVisualStage(index), onEnterBack: () => setVisualStage(index) });
+          const visualStage = Math.min(index, 2);
+          ScrollTrigger.create({ trigger: chapter, start: 'top 58%', end: 'bottom 42%', onEnter: () => setVisualStage(visualStage), onEnterBack: () => setVisualStage(visualStage) });
         });
 
         const progressValue = root.querySelector<HTMLElement>('.story-progress-value');
@@ -239,6 +268,11 @@ export function ServicesExplorer() {
               <h3 data-chapter-item>{offer.title}</h3>
               <p className="story-chapter-context" data-chapter-item>{offer.context}</p>
               <div className="story-value-statement" data-chapter-item><span>Valeur livrée</span><p>{offer.outcome}</p></div>
+              {offer.code === '04' && <div className="story-seo-proof" data-chapter-item>
+                <header><p><strong>Preuve par la mesure</strong><span>Audit Lighthouse de cette réalisation</span></p><small>Contrôle qualité</small></header>
+                <div>{seoScores.map(score => <p key={score.label}><strong>{score.value}</strong><span>{score.label}</span></p>)}</div>
+                <small>Scores obtenus sur l’audit présenté. Les résultats peuvent évoluer selon la page, l’hébergement, le contenu et les conditions de mesure.</small>
+              </div>}
               <div className="story-chapter-scope" data-chapter-item><span>Ce qui est inclus</span><ul>{offer.deliverables.map(item => <li key={item}><Check aria-hidden="true" />{item}</li>)}</ul></div>
               <div className="story-chapter-delivery" data-chapter-item>{offer.outputs.map(item => <div key={item.title}><strong>{item.title}</strong><p>{item.text}</p></div>)}</div>
               <a href="#contact" data-chapter-item>{offer.action}<ArrowUpRight aria-hidden="true" /></a>
@@ -246,7 +280,7 @@ export function ServicesExplorer() {
           })}
 
           <div className="web-story-result">
-            <span>04 / Engagement</span>
+            <span>05 / Engagement</span>
             <h3>Un périmètre clair.<br /><em>Un produit réellement livré.</em></h3>
             <p>Avant de commencer, vous savez ce qui sera construit, ce qui sera remis à la livraison et comment le résultat répond à votre besoin.</p>
           </div>
