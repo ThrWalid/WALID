@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MobileNavigation } from '@/components/portfolio-controls';
 import { Button } from '@/components/ui/button';
-import { ArrowUpRight, FolderOpen } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { navigation, navigateToSection } from '@/lib/navigation';
 
 export function PortfolioNavbar() {
@@ -100,7 +100,7 @@ export function PortfolioNavbar() {
         >{label}</Link>)}
       </nav>
 
-      <Link className={`header-portfolio-link${pathname === '/profil' ? ' is-active' : ''}`} href="/profil" aria-label="Ouvrir le portfolio" title="Portfolio" aria-current={pathname === '/profil' ? 'page' : undefined}><FolderOpen aria-hidden="true" /></Link>
+      <Link className={`header-portfolio-link${pathname === '/profil' ? ' is-active' : ''}`} href="/profil" aria-current={pathname === '/profil' ? 'page' : undefined}>Qui suis-je ?</Link>
       <Button asChild className={`header-cta${activeSection === 'contact' ? ' is-active' : ''}`}><Link href="#contact" aria-current={activeSection === 'contact' ? 'location' : undefined}>Contact<ArrowUpRight aria-hidden="true" /></Link></Button>
       <MobileNavigation activeSection={activeSection} isHomePage={isHomePage} />
     </div>

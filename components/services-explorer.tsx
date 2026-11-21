@@ -6,23 +6,53 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  Gauge,
   Globe2,
-  Layers3,
-  MonitorSmartphone,
   PanelsTopLeft,
   RefreshCcw,
   SearchCheck,
-  ShieldCheck,
   Sparkles,
 } from 'lucide-react';
 import { StartProjectButton } from '@/components/portfolio-controls';
 
-const process = [
-  { title: 'Diagnostic', description: 'Nous clarifions votre objectif, les utilisateurs concernés, l’existant et les contraintes. Le résultat attendu est défini dès le départ.' },
-  { title: 'Spécification', description: 'Je formalise les pages, les parcours, les fonctionnalités, les contenus et le calendrier. Vous validez le périmètre avant le développement.' },
-  { title: 'Production', description: 'Le design et le développement avancent par étapes courtes. Des démonstrations régulières permettent de vérifier les choix et le fonctionnement.' },
-  { title: 'Mise en ligne', description: 'Je teste les écrans, les performances et les parcours, puis je configure le domaine, la mesure d’audience, les accès et la documentation.' },
+const clientJourney = [
+  {
+    moment: 'Premier échange',
+    title: 'On pose le cap',
+    description: 'Nous transformons vos idées en un objectif précis : attirer, rassurer et déclencher la bonne action.',
+    action: 'Partager votre vision',
+  },
+  {
+    moment: 'Le lendemain',
+    title: 'Votre feuille de route',
+    description: 'Vous recevez une proposition structurée avec les priorités, les livrables, le budget et le calendrier.',
+    action: 'Donner le feu vert',
+  },
+  {
+    moment: 'Première semaine',
+    title: 'L’expérience prend forme',
+    description: 'Votre univers devient une interface claire et mémorable, pensée pour guider naturellement vos visiteurs.',
+    action: 'Affiner les choix clés',
+  },
+  {
+    moment: 'Deuxième semaine',
+    title: 'Le projet devient réel',
+    description: 'Je développe une expérience rapide, fluide et soignée sur chaque écran, puis vous ouvre l’accès aux tests.',
+    action: 'Valider la version finale',
+  },
+  {
+    moment: 'Jour du lancement',
+    title: 'Prêt à convaincre',
+    description: 'Votre site est contrôlé, connecté à votre domaine et publié pour accueillir vos prochains clients.',
+    action: 'Prendre les commandes',
+    complete: true,
+  },
+];
+
+const launchHandoff = [
+  'Un site rapide, responsive et prêt à convertir',
+  'La pleine propriété du site et de son code',
+  'Des accès et un guide pour rester autonome',
+  '30 jours d’accompagnement après le lancement',
 ];
 
 const serviceOffers = [
@@ -119,13 +149,6 @@ const seoScores = [
   { value: '100', label: 'SEO' },
 ];
 
-const qualityStandards = [
-  { icon: MonitorSmartphone, title: 'Responsive', text: 'Une expérience claire et confortable sur mobile, tablette et ordinateur.' },
-  { icon: Gauge, title: 'Performance', text: 'Des images, des polices et du code optimisés pour un chargement rapide.' },
-  { icon: SearchCheck, title: 'Référencement', text: 'Une base SEO propre pour aider les moteurs à comprendre et indexer vos pages.' },
-  { icon: ShieldCheck, title: 'Fiabilité', text: 'Des contrôles d’accessibilité, de sécurité et de fonctionnement avant la livraison.' },
-];
-
 const projectShowcase = [
   { src: '/showcase/saas-dashboard.webp', title: 'Baseline', category: 'SaaS', number: '01' },
   { src: '/showcase/beauty-platform.webp', title: 'Transeface', category: 'Beauté & IA', number: '02' },
@@ -183,8 +206,8 @@ export function ServicesExplorer() {
           gsap.from(result.children, { scrollTrigger: { trigger: result, start: 'top 76%', once: true }, y: 42, autoAlpha: 0, stagger: .1, duration: .8, ease: 'power3.out' });
         }
 
-        gsap.from('.web-story-foundation', { scrollTrigger: { trigger: '.web-story-foundations', start: 'top 82%', once: true }, clipPath: 'inset(0 100% 0 0)', duration: .75, stagger: .1, ease: 'power3.inOut' });
-        gsap.from('.web-story-process li', { scrollTrigger: { trigger: '.web-story-process', start: 'top 82%', once: true }, clipPath: 'inset(0 100% 0 0)', duration: .75, stagger: .1, ease: 'power3.inOut' });
+        gsap.from('.client-journey-step', { scrollTrigger: { trigger: '.client-journey', start: 'top 78%', once: true }, y: 24, autoAlpha: 0, duration: .58, stagger: .09, ease: 'power2.out' });
+        gsap.from('.client-journey-handoff li', { scrollTrigger: { trigger: '.client-journey-handoff', start: 'top 88%', once: true }, x: -12, autoAlpha: 0, duration: .42, stagger: .06, ease: 'power2.out' });
       }, root);
 
       revert = () => context.revert();
@@ -287,22 +310,37 @@ export function ServicesExplorer() {
         </div>
       </div>
 
-      <div className="web-story-process">
-        <p>Déroulement</p>
-        <ol>{process.map((step, index) => <li key={step.title}><span>0{index + 1}</span><div><strong>{step.title}</strong><p>{step.description}</p></div></li>)}</ol>
-        <p>Un processus lisible : chaque étape produit un livrable validé avant de poursuivre.</p>
-      </div>
+      <section className="client-journey" aria-labelledby="client-journey-title">
+        <header className="client-journey-heading">
+          <p>Une méthode fluide, un résultat concret</p>
+          <h3 id="client-journey-title">Un site prêt à <em>faire la différence</em>.<br />Sans projet qui s’éternise.</h3>
+          <span>Pour un site vitrine bien cadré, comptez généralement deux semaines entre le premier échange et la mise en ligne.</span>
+        </header>
 
-      <div className="web-story-foundations">
-        <p>Inclus à la livraison</p>
-        <div>{qualityStandards.map(item => { const Icon = item.icon; return <article className="web-story-foundation" key={item.title}><Icon aria-hidden="true" /><p><strong>{item.title}</strong><span>{item.text}</span></p></article>; })}</div>
-      </div>
+        <ol className="client-journey-timeline">
+          {clientJourney.map(step => <li className={`client-journey-step${step.complete ? ' is-complete' : ''}`} key={step.title}>
+            <div className="client-journey-rail">
+              {step.complete && <i aria-hidden="true"><Check /></i>}
+              <span>{step.moment}</span>
+            </div>
+            <h4>{step.title}</h4>
+            <p>{step.description}</p>
+            <small><strong>Vous :</strong> {step.action}</small>
+          </li>)}
+        </ol>
 
-      <footer className="web-service-footer">
-        <div><Layers3 aria-hidden="true" /><p><strong>Vous avez un besoin précis ou encore à cadrer ?</strong><span>Décrivez le contexte, l’objectif et ce qui existe déjà.</span></p></div>
-        <p className="web-service-automation">Je vous réponds avec les prochaines étapes adaptées au projet.</p>
-        <StartProjectButton label="Parler de mon projet" icon={<ArrowRight aria-hidden="true" />} />
-      </footer>
+        <div className="client-journey-handoff">
+          <div>
+            <p>À l’arrivée, vous avez tout pour avancer :</p>
+            <ul>{launchHandoff.map(item => <li key={item}><Check aria-hidden="true" /><span>{item}</span></li>)}</ul>
+          </div>
+          <aside>
+            <span>Votre futur site peut commencer ici.</span>
+            <StartProjectButton label="Donner vie à mon projet" icon={<ArrowRight aria-hidden="true" />} />
+            <small>Un premier retour concret sous 24 à 48 h ouvrées</small>
+          </aside>
+        </div>
+      </section>
     </div>
   </section>;
 }

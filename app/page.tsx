@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { capabilities, faqs, profile, services } from '@/lib/portfolio';
 import { CleanFooter, StartProjectButton } from '@/components/portfolio-controls';
 import { FaqGrid } from '@/components/faq-accordion';
@@ -38,7 +39,15 @@ export default function Home() {
       <FeedbackShowcase />
 
       <section id="faq" className="faq-section section-space shell" aria-labelledby="faq-title">
-        <header className="editorial-heading"><p className="kicker">Avant de commencer</p><div><h2 id="faq-title">Vos questions.</h2><p>Quelques repères pour préparer notre premier échange.</p></div></header>
+        <header className="editorial-heading faq-intro">
+          <p className="kicker">Avant de commencer</p>
+          <div><h2 id="faq-title">Des réponses<br /><em>sans détour.</em></h2><p>Budget, délais, fonctionnement : voici l’essentiel pour vous aider à avancer sereinement.</p></div>
+          <figure className="faq-profile">
+            <Image src="/walid-linkedin-portrait.webp" alt="Portrait de Walid Tahiri" width={817} height={829} sizes="72px" />
+            <blockquote>« Un projet réussi commence par des réponses claires et des décisions simples. »</blockquote>
+            <figcaption><strong>Walid Tahiri</strong><span>Développeur web indépendant</span></figcaption>
+          </figure>
+        </header>
         <FaqGrid items={[faqs[0], faqs[1], faqs[2], faqs[5], faqs[6]]} />
         <StartProjectButton className="faq-more" label="Une autre question ?" />
       </section>
