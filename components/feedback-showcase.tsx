@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { BadgeCheck, Quote } from 'lucide-react';
+import { BadgeCheck } from 'lucide-react';
 
 const feedback = [
   {
@@ -64,22 +64,13 @@ export function FeedbackShowcase() {
           ease: 'power3.out',
           scrollTrigger: { trigger: '.feedback-heading', start: 'top 86%', once: true },
         });
-        gsap.from('.feedback-quote-mark', {
-          scale: 0.82,
-          rotate: -8,
+        gsap.from('.feedback-entry', {
+          y: 24,
           autoAlpha: 0,
-          duration: 0.65,
-          ease: 'back.out(1.8)',
-          scrollTrigger: { trigger: '.feedback-stage', start: 'top 82%', once: true },
-        });
-        gsap.from('.feedback-card', {
-          x: 34,
-          y: 16,
-          autoAlpha: 0,
-          stagger: 0.12,
-          duration: 0.72,
+          stagger: 0.1,
+          duration: 0.62,
           ease: 'power3.out',
-          scrollTrigger: { trigger: '.feedback-stage', start: 'top 82%', once: true },
+          scrollTrigger: { trigger: '.feedback-list', start: 'top 84%', once: true },
         });
       }, section);
 
@@ -97,38 +88,27 @@ export function FeedbackShowcase() {
     <div className="shell">
       <header className="feedback-heading">
         <p className="kicker">Retours de collaboration</p>
-        <h2 id="feedback-title">Feedbacks<span aria-hidden="true">.</span></h2>
-        <p>Quelques mots de professionnels avec qui j’ai eu le plaisir de travailler.</p>
+        <h2 id="feedback-title">Le travail parle.<br /><em>Eux aussi.</em></h2>
+        <p>Des retours directs de professionnels avec qui j’ai eu le plaisir de construire et de collaborer.</p>
       </header>
 
-      <div className="feedback-stage">
-        <div className="feedback-orbit" aria-hidden="true" />
-        <div className="feedback-quote-mark" aria-hidden="true">
-          <Quote />
-        </div>
-        <div className="feedback-spark" aria-hidden="true"><i /><i /><i /></div>
-
-        <div className="feedback-stack">
-          {feedback.map(person => <article className="feedback-card" key={person.name}>
+      <div className="feedback-list">
+        {feedback.map(person => <article className="feedback-entry" key={person.name}>
+          <blockquote lang={person.language}><span aria-hidden="true">“</span>{person.quote}</blockquote>
+          <footer>
             <div className={`feedback-avatar is-${person.tone}`}>
               <Image src={person.avatar} alt={`Portrait de ${person.name}`} width={96} height={96} />
             </div>
-
-            <div className="feedback-content">
-              <header>
-                <div className="feedback-name-line">
-                  <strong>{person.name}</strong>
-                  {'verified' in person && person.verified ? <BadgeCheck aria-label="Profil professionnel vérifié" /> : null}
-                  {'linkedin' in person && person.linkedin ? <span className="feedback-linkedin" aria-label="Profil LinkedIn">in</span> : null}
-                  <span className="feedback-connection" aria-label="Relation de premier niveau">• 1st</span>
-                </div>
-                <p>{person.subtitle}</p>
-              </header>
-
-              <blockquote lang={person.language}>{person.quote}</blockquote>
+            <div className="feedback-identity">
+              <div className="feedback-name-line">
+                <strong>{person.name}</strong>
+                {'verified' in person && person.verified ? <BadgeCheck aria-label="Profil professionnel vérifié" /> : null}
+                {'linkedin' in person && person.linkedin ? <span className="feedback-linkedin" aria-label="Profil LinkedIn">in</span> : null}
+              </div>
+              <p>{person.subtitle}</p>
             </div>
-          </article>)}
-        </div>
+          </footer>
+        </article>)}
       </div>
     </div>
   </section>;

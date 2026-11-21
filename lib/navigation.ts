@@ -1,6 +1,7 @@
 export const navigation = [
   ['Accueil', 'accueil'],
   ['Services', 'services'],
+  ['Tarifs', 'tarifs'],
   ['Réalisations', 'realisations'],
   ['FAQ', 'faq'],
   ['Contact', 'contact'],

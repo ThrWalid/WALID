@@ -7,6 +7,7 @@ import { ProjectStudies } from '@/components/project-studies';
 import { PortfolioHero } from '@/components/portfolio-hero';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { FeedbackShowcase } from '@/components/feedback-showcase';
+import { PricingSection } from '@/components/pricing-section';
 
 export default function Home() {
   const jsonLd = {
@@ -33,6 +34,8 @@ export default function Home() {
       <PortfolioHero />
 
       <ServicesExplorer />
+
+      <PricingSection />
 
       <ProjectStudies />
 

@@ -16,10 +16,9 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Walid Tahiri', description: 'Sites sur mesure, applications full-stack et automatisation.', images: ['/social-preview.png'] },
   icons: {
     icon: [
-      { url: '/walid-favicon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/walid-favicon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/walid-profile-icon.png', type: 'image/png' },
     ],
-    shortcut: '/walid-favicon-32.png',
+    shortcut: '/walid-profile-icon.png',
     apple: { url: '/walid-apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
   },
 };

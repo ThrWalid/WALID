@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
+  Bot,
   Check,
   Globe2,
   PanelsTopLeft,
@@ -140,6 +141,27 @@ const serviceOffers = [
     ],
     action: 'Améliorer mon référencement',
   },
+  {
+    code: '05',
+    label: 'Agents IA & automatisation',
+    icon: Bot,
+    title: 'Moins de tâches répétitives. Plus de temps utile.',
+    context: 'Pour les équipes qui perdent du temps à trier des e-mails, recopier des données, préparer des comptes rendus ou faire circuler l’information entre plusieurs outils.',
+    outcome: 'Un workflow intelligent reçoit l’information, la comprend, déclenche les bonnes actions et structure le résultat. Votre équipe garde le contrôle et n’intervient que lorsqu’une décision humaine est réellement nécessaire.',
+    deliverables: [
+      'Audit des tâches répétitives et des points de friction',
+      'Workflow n8n relié à vos outils, API et sources de données',
+      'Agent IA configuré avec ses règles, ses outils et son contexte',
+      'Validation humaine, gestion des erreurs et journal d’exécution',
+      'Tests, documentation et accompagnement à la prise en main',
+    ],
+    outputs: [
+      { title: 'Temps récupéré', text: 'Les opérations prévisibles s’exécutent automatiquement, sans copier-coller ni relance manuelle.' },
+      { title: 'Données structurées', text: 'Les informations utiles arrivent au bon format dans votre CRM, tableur ou outil métier.' },
+      { title: 'Contrôle conservé', text: 'Les cas sensibles sont signalés ou soumis à validation avant toute action importante.' },
+    ],
+    action: 'Automatiser mon processus',
+  },
 ];
 
 const seoScores = [
@@ -232,7 +254,7 @@ export function ServicesExplorer() {
         <div className="web-story-intro">
           <p>Je conçois et développe des sites et applications directement reliés à un objectif : présenter une offre, générer des demandes ou simplifier un processus.</p>
           <span className="story-heading-rule" />
-          <p><strong>Sites vitrines</strong><i>·</i><strong>Refontes</strong><i>·</i><strong>Applications web</strong></p>
+          <p><strong>Sites vitrines</strong><i>·</i><strong>Applications web</strong><i>·</i><strong>Agents IA</strong><i>·</i><strong>Refontes</strong></p>
         </div>
       </header>
 
@@ -296,6 +318,10 @@ export function ServicesExplorer() {
                 <div>{seoScores.map(score => <p key={score.label}><strong>{score.value}</strong><span>{score.label}</span></p>)}</div>
                 <small>Scores obtenus sur l’audit présenté. Les résultats peuvent évoluer selon la page, l’hébergement, le contenu et les conditions de mesure.</small>
               </div>}
+              {offer.code === '05' && <figure className="story-automation-proof" data-chapter-item>
+                <div><Image src="/n8n-ai-agent-workflow.png" alt="Workflow n8n reliant un e-mail à un agent IA puis à Google Sheets" width={2000} height={1125} sizes="(max-width: 700px) calc(100vw - 40px), 700px" /></div>
+                <figcaption><strong>Exemple de workflow</strong><span>Un e-mail déclenche l’agent IA, le résultat est contrôlé, formaté puis enregistré automatiquement dans Google Sheets.</span></figcaption>
+              </figure>}
               <div className="story-chapter-scope" data-chapter-item><span>Ce qui est inclus</span><ul>{offer.deliverables.map(item => <li key={item}><Check aria-hidden="true" />{item}</li>)}</ul></div>
               <div className="story-chapter-delivery" data-chapter-item>{offer.outputs.map(item => <div key={item.title}><strong>{item.title}</strong><p>{item.text}</p></div>)}</div>
               <a href="#contact" data-chapter-item>{offer.action}<ArrowUpRight aria-hidden="true" /></a>
@@ -303,7 +329,7 @@ export function ServicesExplorer() {
           })}
 
           <div className="web-story-result">
-            <span>05 / Engagement</span>
+            <span>06 / Engagement</span>
             <h3>Un périmètre clair.<br /><em>Un produit réellement livré.</em></h3>
             <p>Avant de commencer, vous savez ce qui sera construit, ce qui sera remis à la livraison et comment le résultat répond à votre besoin.</p>
           </div>

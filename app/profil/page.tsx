@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Download } from 'lucide-react';
+import { BadgeCheck, BriefcaseBusiness, Code2, Download, ExternalLink, MapPin, ShieldCheck } from 'lucide-react';
+import { siNvidia } from 'simple-icons';
 import { CleanFooter } from '@/components/portfolio-controls';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { ScrollToTop } from '@/components/scroll-to-top';
@@ -11,8 +12,8 @@ import { experience, profile } from '@/lib/portfolio';
 import './profile.css';
 
 export const metadata: Metadata = {
-  title: 'Profil professionnel | Walid Tahiri',
-  description: 'Parcours, expériences, projets et compétences techniques de Walid Tahiri, développeur web et élève ingénieur en informatique.',
+  title: 'Développeur full-stack | Walid Tahiri',
+  description: 'Profil professionnel de Walid Tahiri : développeur full-stack et élève ingénieur à l’UTBM, expérimenté en interfaces web, API, automatisation et outils métier.',
   alternates: { canonical: '/profil' },
 };
 
@@ -54,6 +55,40 @@ const education = [
   },
 ];
 
+const certifications = [
+  {
+    title: '3DEXPERIENCE Business Process Designer Advanced',
+    level: 'Associate · Niveau avancé',
+    issuer: 'Dassault Systèmes',
+    description: 'Conception de processus avancés et connexion d’ITEROP à des applications et services externes.',
+    image: '/certifications/3dexperience-advanced.png',
+    url: 'https://www.credly.com/badges/fc7e90c6-2ea0-4312-8c5e-2b3fb4112f4d',
+  },
+  {
+    title: '3DEXPERIENCE Business Process Designer Beginner',
+    level: 'Associate · Fondamentaux',
+    issuer: 'Dassault Systèmes',
+    description: 'Conception, configuration, test, déploiement et administration de processus métier.',
+    image: '/certifications/3dexperience-beginner.png',
+    url: 'https://www.credly.com/badges/6aba54c1-a505-4f60-882f-25592e20a84a/linked_in_profile',
+  },
+  {
+    title: '3DEXPERIENCE Business Process Player',
+    level: 'Associate · Utilisateur certifié',
+    issuer: 'Dassault Systèmes',
+    description: 'Exécution, délégation et suivi opérationnel des tâches et processus sur la plateforme.',
+    image: '/certifications/3dexperience-player.png',
+    url: 'https://www.credly.com/badges/1c4ca8e6-aa8b-4267-8dcb-67077e98058e/linked_in_profile',
+  },
+  {
+    title: 'Fundamentals of Accelerated Computing with CUDA Python',
+    level: 'Calcul accéléré · CUDA Python',
+    issuer: 'NVIDIA',
+    description: 'Développement et optimisation de calculs parallèles accélérés sur GPU avec CUDA Python.',
+    url: 'https://learn.nvidia.com/certificates?id=fxy9PAM8SDS_Q3KlOR6FiA',
+  },
+];
+
 export default function ProfilePage() {
   return <>
     <ScrollToTop />
@@ -65,34 +100,37 @@ export default function ProfilePage() {
         <div className="profile-page-shell profile-hero-stage">
           <div className="profile-hero-topline">
             <Link href="/">Portfolio <span>/ Profil professionnel</span></Link>
-            <p>Belfort, France · à distance</p>
+            <p><MapPin aria-hidden="true" />Belfort, France · à distance</p>
           </div>
 
           <div className="profile-page-hero-grid">
             <div className="profile-page-hero-copy">
-              <p className="profile-page-eyebrow">Développeur web indépendant</p>
-              <h1 id="profile-title"><span>Du besoin métier</span><span>au produit</span><em>en production.</em></h1>
-              <p className="profile-page-intro">Je prends en charge le parcours, l’interface, le backend et les intégrations nécessaires pour livrer un produit web utilisable, documenté et prêt à évoluer.</p>
+              <p className="profile-page-eyebrow">Développeur full-stack · Élève ingénieur UTBM</p>
+              <h1 id="profile-title">Je transforme les besoins métier en produits web <em>fiables.</em></h1>
+              <p className="profile-page-intro">Je développe des interfaces, des API et des automatisations de bout en bout. Mes expériences chez Dassault Systèmes et SeoDev m’ont appris à travailler avec des contraintes réelles, documenter mes choix et livrer des solutions maintenables.</p>
+
+              <div className="profile-page-actions">
+                <a className="profile-page-primary" href={profile.resume} download>Télécharger mon CV <Download aria-hidden="true" /></a>
+                <a className="profile-page-secondary" href={profile.linkedin} target="_blank" rel="noopener noreferrer">Voir mon LinkedIn <BadgeCheck aria-hidden="true" /></a>
+              </div>
+
+              <ul className="profile-recruiter-proof" aria-label="Points forts professionnels">
+                <li><Code2 aria-hidden="true" /><p><strong>Full-stack</strong><span>Interfaces, API et données</span></p></li>
+                <li><BriefcaseBusiness aria-hidden="true" /><p><strong>Orienté métier</strong><span>Comprendre avant de construire</span></p></li>
+                <li><ShieldCheck aria-hidden="true" /><p><strong>Livraison fiable</strong><span>Tests, documentation, déploiement</span></p></li>
+              </ul>
             </div>
 
-            <figure className="profile-hero-visual">
-              <span className="profile-hero-name" aria-hidden="true">Walid</span>
-              <div className="profile-page-photo"><Image src="/walid-portrait-cutout.png" alt="Portrait de Walid Tahiri" fill priority sizes="(max-width: 760px) 92vw, 360px" /></div>
-            </figure>
-
-            <aside className="profile-hero-details" aria-label="À propos de Walid Tahiri">
-              <p>À propos</p>
-              <h2>Développeur web et élève ingénieur en informatique.</h2>
-              <p className="profile-hero-about">Basé à Belfort, je développe des sites, des applications et des outils métier pour des usages concrets.</p>
+            <aside className="profile-hero-profile" aria-label="À propos de Walid Tahiri">
+              <figure className="profile-hero-visual">
+                <div className="profile-page-photo"><Image src="/walid-portrait-cutout.png" alt="Portrait de Walid Tahiri" fill priority sizes="(max-width: 760px) 92vw, 460px" /></div>
+              </figure>
+              <div className="profile-recruiter-note">
+                <span>Ce que j’apporte</span>
+                <h2>Une vision produit soutenue par une exécution technique solide.</h2>
+                <p>J’avance avec méthode : comprendre l’usage, proposer une solution claire, construire proprement et transmettre ce qui est nécessaire pour la faire évoluer.</p>
+              </div>
             </aside>
-          </div>
-
-          <div className="profile-hero-actions-row">
-            <p>CV et profil professionnel</p>
-            <div className="profile-page-actions">
-              <a className="profile-page-primary" href={profile.resume} download>Télécharger mon CV <Download aria-hidden="true" /></a>
-              <a className="profile-page-secondary" href={profile.linkedin} target="_blank" rel="noopener noreferrer">Consulter LinkedIn</a>
-            </div>
           </div>
         </div>
       </section>
@@ -104,6 +142,30 @@ export default function ProfilePage() {
         </div>
 
         <ExperienceTimeline items={experience} />
+      </section>
+
+      <section id="certifications" className="profile-page-section profile-certifications" aria-labelledby="certifications-title">
+        <div className="profile-page-shell profile-page-section-heading">
+          <p>Certifications</p>
+          <div><span>Compétences vérifiées</span><h2 id="certifications-title">Des acquis techniques.<br /><em>Validés par l’écosystème.</em></h2></div>
+        </div>
+
+        <div className="profile-page-shell profile-certifications-list">
+          {certifications.map((certification, index) => <article className="profile-certification-entry" key={certification.title}>
+            <div className={`profile-certification-visual${certification.image ? '' : ' is-nvidia'}`}>
+              {certification.image
+                ? <Image src={certification.image} alt={`Badge ${certification.title}`} width={180} height={180} sizes="96px" />
+                : <><svg viewBox="0 0 24 24" role="img" aria-label="Logo NVIDIA"><path d={siNvidia.path} /></svg><strong>NVIDIA</strong></>}
+            </div>
+            <div className="profile-certification-meta"><span>0{index + 1}</span><strong>{certification.issuer}</strong></div>
+            <h3>{certification.title}</h3>
+            <p className="profile-certification-level">{certification.level}</p>
+            <p className="profile-certification-description">{certification.description}</p>
+            <a href={certification.url} target="_blank" rel="noopener noreferrer" aria-label={`Vérifier la certification ${certification.title}`}>
+              Vérifier le certificat <ExternalLink aria-hidden="true" />
+            </a>
+          </article>)}
+        </div>
       </section>
 
       <section id="education" className="profile-page-section profile-education" aria-labelledby="education-title">

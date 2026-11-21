@@ -7,6 +7,9 @@ export function ScrollToTop() {
   const lenis = useLenis();
 
   useLayoutEffect(() => {
+    // Preserve intentional deep links such as /profil#certifications.
+    if (window.location.hash) return;
+
     const root = document.documentElement;
     const previousScrollBehavior = root.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';

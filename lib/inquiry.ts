@@ -1,4 +1,4 @@
-export const projectTypes = ['Création de site web', 'Refonte de site', 'Application web', 'Automatisation et intégration', 'À définir ensemble'] as const;
+export const projectTypes = ['Création de site web', 'Refonte de site', 'Application web', 'Agents IA et automatisation', 'À définir ensemble'] as const;
 export const projectBudgets = ['Moins de 2 000 €', '2 000 — 5 000 €', '5 000 — 10 000 €', 'Plus de 10 000 €', 'À discuter'] as const;
 export const projectTimelines = ['Dès que possible', 'Dans 1 à 2 mois', 'Dans 3 à 6 mois', 'Je suis flexible'] as const;
 
