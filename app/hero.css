@@ -19,6 +19,7 @@
 .language-switcher a { display: grid; min-width: 30px; min-height: 28px; place-items: center; border-radius: 999px; color: #64748b; font-size: .68rem; font-weight: 750; letter-spacing: .04em; transition: background .2s ease, color .2s ease, box-shadow .2s ease; }
 .language-switcher a:hover { color: #0f172a; }
 .language-switcher a[aria-current=page] { background: #fff; color: #0071e3; box-shadow: 0 1px 4px rgb(15 23 42 / .12); }
+.mobile-header-language-switcher { display: none; }
 .site-header .header-cta:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(37 99 235 / .2); }
 .header-cta { flex: none; gap: 10px; border: 1px solid #0071e3; background: #0071e3; color: #fff; box-shadow: 0 4px 12px rgb(0 113 227 / .12); }
 .header-cta:hover { background: #005bb8; border-color: #005bb8; }
@@ -157,7 +158,11 @@
 }
 @media (max-width: 900px) {
   .desktop-nav, .site-header .header-cta, .header-portfolio-link, .language-switcher { display: none; }
-  .mobile-nav { display: block; }
+  .header-inner { gap: 8px; }
+  .mobile-header-language-switcher { display: inline-flex; flex: none; align-items: center; gap: 1px; margin-left: auto; padding: 2px; border: 1px solid #dbe3ec; border-radius: 999px; background: #f8fafc; }
+  .mobile-header-language-switcher a { display: grid; min-width: 28px; min-height: 30px; place-items: center; border-radius: 999px; color: #64748b; font-size: .65rem; font-weight: 780; letter-spacing: .03em; }
+  .mobile-header-language-switcher a[aria-current=page] { background: #fff; color: #0071e3; box-shadow: 0 1px 4px rgb(15 23 42 / .12); }
+  .mobile-nav { display: block; margin-left: 0; }
   .hero-laurel { width: 130px; opacity: .32; }
   .hero-laurel-left { left: -48px; }
   .hero-laurel-right { right: -48px; }
@@ -178,4 +183,8 @@
   .hero-showcase-actions [data-slot=button] { width: 100%; }
   .hero-trust { margin-top: 24px; }
   .hero-company-logos { gap: 24px; }
+}
+@media (max-width: 380px) {
+  .brand-wordmark { width: 100px; }
+  .mobile-header-language-switcher a { min-width: 24px; font-size: .61rem; }
 }

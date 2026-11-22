@@ -17,6 +17,7 @@ export function PortfolioNavbar({ locale }: { locale: Locale }) {
   const isHomePage = pathname === `/${locale}`;
   const homePath = `/${locale}`;
   const profilePath = `${homePath}/profile`;
+  const languageHref = (option: Locale) => pathname.replace(/^\/(fr|en|es)/, `/${option}`) || `/${option}`;
   const copy = locale === 'fr'
     ? { home: 'Walid Tahiri, retour à l’accueil', mainNav: 'Navigation principale', profile: 'Qui suis-je ?', contact: 'Contact', language: 'Langue' }
     : locale === 'es'
@@ -112,9 +113,12 @@ export function PortfolioNavbar({ locale }: { locale: Locale }) {
 
       <Link className={`header-portfolio-link${pathname === profilePath ? ' is-active' : ''}`} href={profilePath} aria-current={pathname === profilePath ? 'page' : undefined}>{copy.profile}</Link>
       <nav className="language-switcher" aria-label={copy.language}>
-        {(['fr', 'en', 'es'] as const).map(option => <Link key={option} href={pathname.replace(/^\/(fr|en|es)/, `/${option}`) || `/${option}`} hrefLang={option} lang={option} aria-current={locale === option ? 'page' : undefined}>{option.toUpperCase()}</Link>)}
+        {(['fr', 'en', 'es'] as const).map(option => <Link key={option} href={languageHref(option)} hrefLang={option} lang={option} aria-current={locale === option ? 'page' : undefined}>{option.toUpperCase()}</Link>)}
       </nav>
       <Button asChild className={`header-cta${activeSection === 'contact' ? ' is-active' : ''}`}><Link href="#contact" aria-current={activeSection === 'contact' ? 'location' : undefined}>{copy.contact}<ArrowUpRight aria-hidden="true" /></Link></Button>
+      <nav className="mobile-header-language-switcher" aria-label={copy.language}>
+        {(['fr', 'en', 'es'] as const).map(option => <Link key={option} href={languageHref(option)} hrefLang={option} lang={option} aria-current={locale === option ? 'page' : undefined}>{option.toUpperCase()}</Link>)}
+      </nav>
       <MobileNavigation activeSection={activeSection} isHomePage={isHomePage} locale={locale} />
     </div>
   </header>;
