@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowUpRight, Check, Download, LoaderCircle, Mail, Menu, Send, ShieldCheck, UserRound } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Check, Download, LoaderCircle, Mail, Menu, Send, ShieldCheck, UserRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { navigateToSection } from '@/lib/navigation';
@@ -186,8 +186,28 @@ export function CleanFooter({
   const year = new Date().getFullYear();
   const copy = controlsCopy[locale];
   const isHomePage = pathname === `/${locale}`;
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
-  return <footer id="contact" className="kinetic-footer footer-editorial" aria-labelledby="contact-title">
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setShowBackToTop(window.scrollY > Math.min(900, window.innerHeight * .85));
+    };
+    const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+
+  return <><footer id="contact" className="kinetic-footer footer-editorial" aria-labelledby="contact-title">
     <div id="project-contact-form" className="contact-form-section">
       <div className="shell contact-form-layout">
         <div className="contact-form-intro">
@@ -239,5 +259,9 @@ export function CleanFooter({
         <span className="footer-editorial-copy">© {year} Walid Tahiri</span><span>{copy.footerLocation}</span><a href={isHomePage ? '#accueil' : `/${locale}#accueil`}>{copy.top}</a>
       </div>
     </div>
-  </footer>;
+  </footer>
+    <button className="floating-back-to-top" type="button" data-visible={showBackToTop || undefined} onClick={scrollToTop} aria-label={copy.top} title={copy.top}>
+      <ArrowUp aria-hidden="true" />
+    </button>
+  </>;
 }

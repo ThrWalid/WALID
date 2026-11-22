@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import localFont from 'next/font/local';
 import { profile } from '@/lib/portfolio';
 import { isLocale, locales, type Locale } from '@/lib/i18n';
 import { notFound } from 'next/navigation';
@@ -8,6 +9,21 @@ import "../brand.css";
 import "../feedback.css";
 import 'lenis/dist/lenis.css';
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider';
+
+const geist = localFont({
+  src: '../../public/geist.woff2',
+  variable: '--font-geist',
+  display: 'swap',
+  preload: true,
+  fallback: ['Arial', 'sans-serif'],
+});
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#ffffff',
+  colorScheme: 'light',
+};
 
 const metadataByLocale = {
   fr: {
@@ -62,8 +78,7 @@ export default async function RootLayout({
   if (!isLocale(locale)) notFound();
   return (
     <html lang={locale}>
-      <head><link rel="preload" href="/geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head>
-      <body className="antialiased"><SmoothScrollProvider>{children}</SmoothScrollProvider></body>
+      <body className={`${geist.variable} antialiased`}><SmoothScrollProvider>{children}</SmoothScrollProvider></body>
     </html>
   );
 }

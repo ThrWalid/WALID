@@ -25,6 +25,7 @@ export function PortfolioNavbar({ locale }: { locale: Locale }) {
       : { home: 'Walid Tahiri, back to home', mainNav: 'Main navigation', profile: 'About me', contact: 'Contact', language: 'Language' };
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const sectionHref = (id: string) => isHomePage || id === 'contact' ? `#${id}` : `${homePath}#${id}`;
 
@@ -34,6 +35,8 @@ export function PortfolioNavbar({ locale }: { locale: Locale }) {
     const updateNavigation = () => {
       frame = 0;
       setScrolled(window.scrollY > 18);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0);
 
       const headerHeight = document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 72;
       const marker = window.scrollY + headerHeight + 24;
@@ -121,5 +124,6 @@ export function PortfolioNavbar({ locale }: { locale: Locale }) {
       </nav>
       <MobileNavigation activeSection={activeSection} isHomePage={isHomePage} locale={locale} />
     </div>
+    <span className="site-scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true" />
   </header>;
 }
