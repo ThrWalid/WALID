@@ -102,6 +102,9 @@ details[open] > summary svg { transform: rotate(45deg); }
 .mobile-sheet nav a.is-active { font-weight: 650; text-decoration: underline; text-underline-offset: 6px; }
 .mobile-sheet nav a:hover { text-decoration: underline; }
 .mobile-cta { width: 100%; margin-top: 16px; }
+.mobile-language-switcher { display: flex; gap: 8px; margin-top: auto; padding-top: 20px; }
+.mobile-language-switcher a { display: grid; min-height: 40px; flex: 1; place-items: center; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .78rem; font-weight: 750; }
+.mobile-language-switcher a[aria-current=page] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, white); color: var(--accent); }
 [data-slot=sheet-content] > button:last-child { width: 44px; height: 44px; display: grid; place-items: center; opacity: 1; background: #fff; color: #111; border: 1px solid #dedede; border-radius: 50%; }
 .project-inquiry-sheet { max-height: 95dvh; overflow-y: auto; border: 0; border-radius: 28px 28px 0 0; background: linear-gradient(145deg,#f4f7fb,#fff 64%); color: #11151c; padding: 0; box-shadow: 0 -28px 90px rgb(28 50 82 / .2); }
 .project-inquiry-shell { width: min(1180px,calc(100% - 64px)); margin-inline: auto; display: grid; grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr); gap: clamp(44px,7vw,92px); align-items: start; padding-block: 62px 42px; }

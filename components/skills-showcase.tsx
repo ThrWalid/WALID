@@ -4,6 +4,7 @@ import {
   siNextdotjs, siNodedotjs, siOpenjdk, siPostman, siPython, siReact,
   siShadcnui, siTailwindcss, siTypescript, siWebflow, type SimpleIcon,
 } from 'simple-icons';
+import type { Locale } from '@/lib/i18n';
 
 type Skill = { name: string; icon?: SimpleIcon; mark?: string; color?: string };
 type SkillGroup = { title: string; context: string; items: Skill[] };
@@ -50,11 +51,24 @@ const groups: SkillGroup[] = [
   },
 ];
 
-export function SkillsShowcase() {
+export function SkillsShowcase({ locale }: { locale: Locale }) {
+  const copy = locale === 'fr' ? {
+    kicker: 'Compétences', title: <>De l’interface<br /><em>au déploiement.</em></>, intro: 'Des technologies pratiquées au fil des projets, avec un rôle précis à chaque étape.',
+    groupTitles: ['Frontend & interfaces', 'Backend & APIs', 'Cloud & DevOps', 'IA, data & design'],
+    contexts: ['Interfaces web, composants et animations', 'Applications, services et intégrations', 'Conteneurs, systèmes et déploiement', 'Prototypage, analyse et outils de conception'],
+  } : locale === 'es' ? {
+    kicker: 'Competencias', title: <>De la interfaz<br /><em>al despliegue.</em></>, intro: 'Tecnologías utilizadas en proyectos reales, cada una con un papel preciso.',
+    groupTitles: ['Frontend e interfaces', 'Backend y APIs', 'Cloud y DevOps', 'IA, datos y diseño'],
+    contexts: ['Interfaces web, componentes y animaciones', 'Aplicaciones, servicios e integraciones', 'Contenedores, sistemas y despliegue', 'Prototipado, análisis y herramientas de diseño'],
+  } : {
+    kicker: 'Skills', title: <>From interface<br /><em>to deployment.</em></>, intro: 'Technologies used across real projects, each serving a clear purpose.',
+    groupTitles: ['Frontend & interfaces', 'Backend & APIs', 'Cloud & DevOps', 'AI, data & design'],
+    contexts: ['Web interfaces, components and animation', 'Applications, services and integrations', 'Containers, systems and deployment', 'Prototyping, analysis and design tools'],
+  };
   return <section id="skills" className="skills-section section-space" aria-labelledby="skills-title"><div className="shell">
-    <div className="editorial-heading"><p className="kicker">Compétences</p><div><h2 id="skills-title">De l’interface<br /><em>au déploiement.</em></h2><p>Des technologies pratiquées au fil des projets, avec un rôle précis à chaque étape.</p></div></div>
+    <div className="editorial-heading"><p className="kicker">{copy.kicker}</p><div><h2 id="skills-title">{copy.title}</h2><p>{copy.intro}</p></div></div>
     <div className="skills-groups">{groups.map((group, index) => <article className="skills-group" key={group.title}>
-      <div className="skills-group-heading"><span>0{index + 1}</span><div><h3>{group.title}</h3><p>{group.context}</p></div></div>
+      <div className="skills-group-heading"><span>0{index + 1}</span><div><h3>{copy.groupTitles[index]}</h3><p>{copy.contexts[index]}</p></div></div>
       <ul>{group.items.map(item => <li key={item.name}>
         {item.icon ? <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style={{ fill: `#${item.icon.hex}` }}><path d={item.icon.path} /></svg> : <i className="skills-fallback-icon" style={{ color: item.color }}>{item.mark}</i>}
         <span>{item.name}</span>

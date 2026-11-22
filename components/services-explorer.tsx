@@ -14,8 +14,10 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { StartProjectButton } from '@/components/portfolio-controls';
+import { servicesContent } from '@/lib/services-content';
+import type { Locale } from '@/lib/i18n';
 
-const clientJourney = [
+export const clientJourney = [
   {
     moment: 'Premier échange',
     title: 'On pose le cap',
@@ -49,14 +51,14 @@ const clientJourney = [
   },
 ];
 
-const launchHandoff = [
+export const launchHandoff = [
   'Un site rapide, responsive et prêt à convertir',
   'La pleine propriété du site et de son code',
   'Des accès et un guide pour rester autonome',
   '30 jours d’accompagnement après le lancement',
 ];
 
-const serviceOffers = [
+export const serviceOffers = [
   {
     code: '01',
     label: 'Site vitrine & acquisition',
@@ -177,7 +179,24 @@ const projectShowcase = [
   { src: '/showcase/growth-agency.webp', title: 'Growthy', category: 'Conseil', number: '03' },
 ];
 
-export function ServicesExplorer() {
+export function ServicesExplorer({ locale }: { locale: Locale }) {
+  const localized = locale === 'fr' ? {
+    offers: serviceOffers,
+    journey: clientJourney.map(step => [step.moment, step.title, step.description, step.action]),
+    handoff: launchHandoff,
+    labels: {
+      kicker: 'Conception & développement web', heading: <>Votre besoin.<br />Un produit web<br /><em>prêt à servir.</em></>, intro: 'Je conçois et développe des sites et applications directement reliés à un objectif : présenter une offre, générer des demandes ou simplifier un processus.', categories: ['Sites vitrines', 'Applications web', 'Agents IA', 'Refontes'],
+      mobileLabel: 'Aperçu de projets web', selected: 'Projets sélectionnés', swipe: 'Glissez pour explorer', selection: 'Sélection', interfaces: 'interfaces web', customInterfaces: <>interfaces<br />sur mesure</>, captions: ['Site vitrine — clarifier l’offre et faciliter la prise de contact.', 'Refonte — améliorer l’expérience sans perdre l’existant utile.', 'Application — transformer un processus en outil opérationnel.'],
+      deliveredValue: 'Valeur livrée', proof: 'Preuve par la mesure', lighthouse: 'Audit Lighthouse de cette réalisation', quality: 'Contrôle qualité', scores: ['Performance', 'Accessibilité', 'Bonnes pratiques', 'SEO'], scoreNote: 'Scores obtenus sur l’audit présenté. Les résultats peuvent évoluer selon la page, l’hébergement, le contenu et les conditions de mesure.',
+      workflowAlt: 'Workflow n8n reliant un e-mail à un agent IA puis à Google Sheets', workflowExample: 'Exemple de workflow', workflowCaption: 'Un e-mail déclenche l’agent IA, le résultat est contrôlé, formaté puis enregistré automatiquement dans Google Sheets.', included: 'Ce qui est inclus',
+      commitment: '06 / Engagement', commitmentTitle: <>Un périmètre clair.<br /><em>Un produit réellement livré.</em></>, commitmentText: 'Avant de commencer, vous savez ce qui sera construit, ce qui sera remis à la livraison et comment le résultat répond à votre besoin.', method: 'Une méthode fluide, un résultat concret', journeyTitle: <>Un site prêt à <em>faire la différence</em>.<br />Sans projet qui s’éternise.</>, journeyIntro: 'Pour un site vitrine bien cadré, comptez généralement deux semaines entre le premier échange et la mise en ligne.',
+      you: 'Vous :', arrival: 'À l’arrivée, vous avez tout pour avancer :', future: 'Votre futur site peut commencer ici.', cta: 'Donner vie à mon projet', response: 'Un premier retour concret sous 24 à 48 h ouvrées',
+    },
+  } : servicesContent[locale];
+  const { offers, journey, handoff, labels } = localized;
+  const offerIcons = [Globe2, RefreshCcw, PanelsTopLeft, SearchCheck, Bot];
+  const showcaseCategories = locale === 'fr' ? ['SaaS', 'Beauté & IA', 'Conseil'] : locale === 'es' ? ['SaaS', 'Belleza e IA', 'Consultoría'] : ['SaaS', 'Beauty & AI', 'Consulting'];
+  const showcase = projectShowcase.map((item, index) => ({ ...item, category: showcaseCategories[index] }));
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -245,27 +264,25 @@ export function ServicesExplorer() {
   return <section ref={rootRef} id="services" className="web-story-section section-space" aria-labelledby="services-title">
     <div className="shell">
       <header className="web-story-heading">
-        <p className="services-editorial-kicker"><Sparkles aria-hidden="true" />Conception & développement web</p>
+        <p className="services-editorial-kicker"><Sparkles aria-hidden="true" />{labels.kicker}</p>
         <h2 id="services-title">
-          <span className="story-heading-line"><span>Votre besoin.</span></span><br />
-          <span className="story-heading-line"><span>Un produit web</span></span><br />
-          <span className="story-heading-line"><span><em>prêt à servir.</em></span></span>
+          <span className="story-heading-line"><span>{labels.heading}</span></span>
         </h2>
         <div className="web-story-intro">
-          <p>Je conçois et développe des sites et applications directement reliés à un objectif : présenter une offre, générer des demandes ou simplifier un processus.</p>
+          <p>{labels.intro}</p>
           <span className="story-heading-rule" />
-          <p><strong>Sites vitrines</strong><i>·</i><strong>Applications web</strong><i>·</i><strong>Agents IA</strong><i>·</i><strong>Refontes</strong></p>
+          <p>{labels.categories.map((item, index) => <span key={item}><strong>{item}</strong>{index < labels.categories.length - 1 && <i>·</i>}</span>)}</p>
         </div>
       </header>
 
-      <div className="story-mobile-showcase" aria-label="Aperçu de projets web">
+      <div className="story-mobile-showcase" aria-label={labels.mobileLabel}>
         <div className="story-mobile-showcase-heading">
-          <span>Projets sélectionnés</span>
-          <p>Glissez pour explorer</p>
+          <span>{labels.selected}</span>
+          <p>{labels.swipe}</p>
         </div>
         <div className="story-mobile-showcase-track">
-          {projectShowcase.map(item => <figure className="story-mobile-project" key={`mobile-${item.src}`}>
-            <Image src={item.src} alt={`Interface du projet ${item.title}`} width={900} height={600} sizes="(max-width: 700px) 78vw, 0px" />
+          {showcase.map(item => <figure className="story-mobile-project" key={`mobile-${item.src}`}>
+            <Image src={item.src} alt={`${locale === 'fr' ? 'Interface du projet' : locale === 'es' ? 'Interfaz del proyecto' : 'Project interface'} ${item.title}`} width={900} height={600} sizes="(max-width: 700px) 78vw, 0px" />
             <span aria-hidden="true" />
             <figcaption>
               <p><small>{item.category}</small><strong>{item.title}</strong></p>
@@ -279,7 +296,7 @@ export function ServicesExplorer() {
         <aside className="web-story-visual" aria-hidden="true">
           <div className="story-visual-sticky" data-stage="0">
             <div className="story-visual-meta">
-              <p><span>Sélection</span> interfaces web</p>
+              <p><span>{labels.selection}</span> {labels.interfaces}</p>
               <div className="story-progress-readout"><span className="story-progress-value">00%</span><i className="story-progress-line" /></div>
             </div>
             <div className="story-project-reel">
@@ -287,7 +304,7 @@ export function ServicesExplorer() {
               <div className="story-project-lane">
                 <div className="story-project-track">
                   {[false, true].map(duplicate => <div className="story-project-group" aria-hidden={duplicate || undefined} key={String(duplicate)}>
-                    {projectShowcase.map(item => <figure className="story-project-card" key={`${item.src}-${duplicate}`}>
+                    {showcase.map(item => <figure className="story-project-card" key={`${item.src}-${duplicate}`}>
                       <Image src={item.src} alt="" width={1600} height={1067} sizes="(max-width: 980px) 250px, 480px" />
                       <span className="story-project-scrim" />
                       <figcaption><span>{item.category}</span><strong>{item.title}</strong><i>{item.number}</i></figcaption>
@@ -295,75 +312,73 @@ export function ServicesExplorer() {
                   </div>)}
                 </div>
               </div>
-              <div className="story-project-badge"><span>03</span><p>interfaces<br />sur mesure</p></div>
+              <div className="story-project-badge"><span>03</span><p>{labels.customInterfaces}</p></div>
               <div className="story-project-caption">
-                <span className="story-caption-1">Site vitrine — clarifier l’offre et faciliter la prise de contact.</span>
-                <span className="story-caption-2">Refonte — améliorer l’expérience sans perdre l’existant utile.</span>
-                <span className="story-caption-3">Application — transformer un processus en outil opérationnel.</span>
+                {labels.captions.map((caption, index) => <span className={`story-caption-${index + 1}`} key={caption}>{caption}</span>)}
               </div>
             </div>
           </div>
         </aside>
 
         <div className="web-story-content">
-          {serviceOffers.map(offer => {
-            const Icon = offer.icon;
+          {offers.map((offer, index) => {
+            const Icon = offerIcons[index];
             return <article className="web-story-chapter" key={offer.code}>
               <header data-chapter-item><span>{offer.code}</span><i><Icon aria-hidden="true" /></i><p>{offer.label}</p></header>
               <h3 data-chapter-item>{offer.title}</h3>
               <p className="story-chapter-context" data-chapter-item>{offer.context}</p>
-              <div className="story-value-statement" data-chapter-item><span>Valeur livrée</span><p>{offer.outcome}</p></div>
+              <div className="story-value-statement" data-chapter-item><span>{labels.deliveredValue}</span><p>{offer.outcome}</p></div>
               {offer.code === '04' && <div className="story-seo-proof" data-chapter-item>
-                <header><p><strong>Preuve par la mesure</strong><span>Audit Lighthouse de cette réalisation</span></p><small>Contrôle qualité</small></header>
-                <div>{seoScores.map(score => <p key={score.label}><strong>{score.value}</strong><span>{score.label}</span></p>)}</div>
-                <small>Scores obtenus sur l’audit présenté. Les résultats peuvent évoluer selon la page, l’hébergement, le contenu et les conditions de mesure.</small>
+                <header><p><strong>{labels.proof}</strong><span>{labels.lighthouse}</span></p><small>{labels.quality}</small></header>
+                <div>{seoScores.map((score, index) => <p key={score.value + index}><strong>{score.value}</strong><span>{labels.scores[index]}</span></p>)}</div>
+                <small>{labels.scoreNote}</small>
               </div>}
               {offer.code === '05' && <figure className="story-automation-proof" data-chapter-item>
-                <div><Image src="/n8n-ai-agent-workflow.png" alt="Workflow n8n reliant un e-mail à un agent IA puis à Google Sheets" width={2000} height={1125} sizes="(max-width: 700px) calc(100vw - 40px), 700px" /></div>
-                <figcaption><strong>Exemple de workflow</strong><span>Un e-mail déclenche l’agent IA, le résultat est contrôlé, formaté puis enregistré automatiquement dans Google Sheets.</span></figcaption>
+                <div><Image src="/n8n-ai-agent-workflow.png" alt={labels.workflowAlt} width={2000} height={1125} sizes="(max-width: 700px) calc(100vw - 40px), 700px" /></div>
+                <figcaption><strong>{labels.workflowExample}</strong><span>{labels.workflowCaption}</span></figcaption>
               </figure>}
-              <div className="story-chapter-scope" data-chapter-item><span>Ce qui est inclus</span><ul>{offer.deliverables.map(item => <li key={item}><Check aria-hidden="true" />{item}</li>)}</ul></div>
+              <div className="story-chapter-scope" data-chapter-item><span>{labels.included}</span><ul>{offer.deliverables.map(item => <li key={item}><Check aria-hidden="true" />{item}</li>)}</ul></div>
               <div className="story-chapter-delivery" data-chapter-item>{offer.outputs.map(item => <div key={item.title}><strong>{item.title}</strong><p>{item.text}</p></div>)}</div>
               <a href="#contact" data-chapter-item>{offer.action}<ArrowUpRight aria-hidden="true" /></a>
             </article>;
           })}
 
           <div className="web-story-result">
-            <span>06 / Engagement</span>
-            <h3>Un périmètre clair.<br /><em>Un produit réellement livré.</em></h3>
-            <p>Avant de commencer, vous savez ce qui sera construit, ce qui sera remis à la livraison et comment le résultat répond à votre besoin.</p>
+            <span>{labels.commitment}</span>
+            <h3>{labels.commitmentTitle}</h3>
+            <p>{labels.commitmentText}</p>
           </div>
         </div>
       </div>
 
       <section className="client-journey" aria-labelledby="client-journey-title">
         <header className="client-journey-heading">
-          <p>Une méthode fluide, un résultat concret</p>
-          <h3 id="client-journey-title">Un site prêt à <em>faire la différence</em>.<br />Sans projet qui s’éternise.</h3>
-          <span>Pour un site vitrine bien cadré, comptez généralement deux semaines entre le premier échange et la mise en ligne.</span>
+          <p>{labels.method}</p>
+          <h3 id="client-journey-title">{labels.journeyTitle}</h3>
+          <span>{labels.journeyIntro}</span>
         </header>
 
         <ol className="client-journey-timeline">
-          {clientJourney.map(step => <li className={`client-journey-step${step.complete ? ' is-complete' : ''}`} key={step.title}>
+          {journey.map((step, index) => <li className={`client-journey-step${index === journey.length - 1 ? ' is-complete' : ''}`} key={step[1]}>
             <div className="client-journey-rail">
-              {step.complete && <i aria-hidden="true"><Check /></i>}
-              <span>{step.moment}</span>
+              {index === journey.length - 1 && <i aria-hidden="true"><Check /></i>}
+              <span>{step[0]}</span>
             </div>
-            <h4>{step.title}</h4>
-            <p>{step.description}</p>
-            <small><strong>Vous :</strong> {step.action}</small>
+            <h4>{step[1]}</h4>
+            <p>{step[2]}</p>
+            <small><strong>{labels.you}</strong> {step[3]}</small>
           </li>)}
         </ol>
 
         <div className="client-journey-handoff">
           <div>
-            <p>À l’arrivée, vous avez tout pour avancer :</p>
-            <ul>{launchHandoff.map(item => <li key={item}><Check aria-hidden="true" /><span>{item}</span></li>)}</ul>
+            <p>{labels.arrival}</p>
+            <ul>{handoff.map(item => <li key={item}><Check aria-hidden="true" /><span>{item}</span></li>)}</ul>
           </div>
           <aside>
-            <span>Votre futur site peut commencer ici.</span>
-            <StartProjectButton label="Donner vie à mon projet" icon={<ArrowRight aria-hidden="true" />} />
-            <small>Un premier retour concret sous 24 à 48 h ouvrées</small>
+            <span>{labels.future}</span>
+            <StartProjectButton label={labels.cta} icon={<ArrowRight aria-hidden="true" />} />
+            <small>{labels.response}</small>
           </aside>
         </div>
       </section>

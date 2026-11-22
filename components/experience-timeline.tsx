@@ -1,7 +1,13 @@
 import Image from 'next/image';
 import type { Experience } from '@/lib/portfolio';
+import type { Locale } from '@/lib/i18n';
 
-export function ExperienceTimeline({ items }: { items: Experience[] }) {
+export function ExperienceTimeline({ items, locale }: { items: Experience[]; locale: Locale }) {
+  const copy = locale === 'fr'
+    ? { featured: 'Résultats pour le Business Development Hub', results: 'Résultats et contributions', environment: 'Environnement technique', technologies: 'Technologies utilisées chez' }
+    : locale === 'es'
+    ? { featured: 'Resultados para el Business Development Hub', results: 'Resultados y contribuciones', environment: 'Entorno técnico', technologies: 'Tecnologías utilizadas en' }
+    : { featured: 'Results for the Business Development Hub', results: 'Results and contributions', environment: 'Technical environment', technologies: 'Technologies used at' };
   return <div className="profile-page-shell profile-timeline">
     {items.map((item, index) => {
       const isFeatured = index === 0;
@@ -17,11 +23,11 @@ export function ExperienceTimeline({ items }: { items: Experience[] }) {
           <h3>{item.role}</h3>
           <p className="profile-experience-summary">{item.body}</p>
 
-          <p className="profile-experience-impact-label">{isFeatured ? 'Résultats pour le Business Development Hub' : 'Résultats et contributions'}</p>
+          <p className="profile-experience-impact-label">{isFeatured ? copy.featured : copy.results}</p>
           <ul className="profile-experience-highlights">{item.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>
 
-          <div className="profile-stack-heading"><span>Environnement technique</span><i /></div>
-          <ul className="profile-stack" aria-label={`Technologies utilisées chez ${item.company}`}>{item.stack.map(technology => <li key={technology}>{technology}</li>)}</ul>
+          <div className="profile-stack-heading"><span>{copy.environment}</span><i /></div>
+          <ul className="profile-stack" aria-label={`${copy.technologies} ${item.company}`}>{item.stack.map(technology => <li key={technology}>{technology}</li>)}</ul>
         </div>
       </article>;
     })}

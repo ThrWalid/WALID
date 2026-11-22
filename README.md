@@ -1,30 +1,31 @@
 # Walid Tahiri — Portfolio
 
-Portfolio personnel construit avec Next.js, React, TypeScript et Tailwind CSS.
+Personal bilingual portfolio built with Next.js 16, React 19, TypeScript and Tailwind CSS.
 
-## Démarrage
+## Getting started
 
-Prérequis : Node.js 20.9 ou plus récent.
+Requires Node.js 20.9 or newer.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Ouvrez ensuite [http://localhost:3100](http://localhost:3100).
+Then open [http://localhost:3100](http://localhost:3100). The language-aware proxy redirects to French (`/fr`), English (`/en`) or Spanish (`/es`) from the browser preference.
 
-## Commandes
+## Commands
 
-- `npm run dev` : serveur de développement Next.js
-- `npm run build` : build de production
-- `npm run start` : serveur de production
-- `npm run lint` : analyse ESLint
-- `npm run typecheck` : vérification TypeScript
-- `npm run check` : toutes les vérifications
+- `npm run dev`: Next.js development server
+- `npm run build`: production build
+- `npm run start`: production server
+- `npm run lint`: ESLint checks
+- `npm run typecheck`: TypeScript checks
+- `npm run check`: run every verification
 
 ## Structure
 
-- `app/` : routes, métadonnées et styles globaux
-- `components/` : composants utilisés par le portfolio
-- `lib/` : contenu et fonctions partagées
-- `public/` : images, police et CV utilisés par le site
+- `app/[locale]/`: statically generated French, English and Spanish routes
+- `components/`: portfolio components
+- `lib/`: localized content and shared utilities
+- `public/`: images, font and résumé assets
+- `proxy.ts`: locale detection and legacy-route redirects

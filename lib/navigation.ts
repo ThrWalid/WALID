@@ -1,12 +1,3 @@
-export const navigation = [
-  ['Accueil', 'accueil'],
-  ['Services', 'services'],
-  ['Tarifs', 'tarifs'],
-  ['Réalisations', 'realisations'],
-  ['FAQ', 'faq'],
-  ['Contact', 'contact'],
-] as const;
-
 /** Shared by ordinary links and links deferred until a modal has closed. */
 export function navigateToSection(id: string, updateHistory = true) {
   const target = document.getElementById(id);
